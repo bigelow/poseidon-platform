@@ -1,0 +1,54 @@
+---
+version: '3'
+
+tasks:
+ build:
+   cmds:
+     - mkdocs build
+   desc: Build documentation
+
+ clean:
+   cmds:
+     - rm -rf site/
+     - docker compose down --volumes
+   desc: Clean build artifacts
+
+ default:
+   cmds:
+     - task -l
+
+ deploy:prep:
+   cmds:
+     - task: build
+     - task: docker:build
+   desc: Prepare for deployment
+
+ dev:
+   cmds:
+     - docker compose up --build
+   desc: Start development server
+
+ docker:build:
+   cmds:
+     - docker build -t poseidon/docs:latest .
+   desc: Build Docker image
+
+ docker:run:
+   cmds:
+     - docker run -p 8000:8000 poseidon/docs:latest
+   desc: Run Docker container
+
+ install:
+   cmds:
+     - uv pip install -r requirements.txt
+   desc: Install dependencies
+
+ serve:
+   cmds:
+     - mkdocs serve
+   desc: Serve documentation locally
+
+ test:
+   cmds:
+     - mkdocs build --strict
+   desc: Test documentation build
