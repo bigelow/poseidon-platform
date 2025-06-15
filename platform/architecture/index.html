@@ -1,0 +1,2580 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Enterprise Development Infrastructure - IC Portfolio & Case Study">
+      
+      
+        <meta name="author" content="IC Technical Leadership">
+      
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../../services/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Architecture - Poseidon Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#platform-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Poseidon Platform" class="md-header__button md-logo" aria-label="Poseidon Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Poseidon Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  Platform
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../services/" class="md-tabs__link">
+          
+  
+  
+  Services
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../engineering/decisions/" class="md-tabs__link">
+          
+  
+  
+  Engineering
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../case-studies/development-acceleration/" class="md-tabs__link">
+          
+  
+  
+  Case Studies
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Poseidon Platform" class="md-nav__button md-logo" aria-label="Poseidon Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Poseidon Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Platform
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Platform
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-architecture-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Architecture Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Architecture Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Design Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-communication-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Communication Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-services-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Services Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Services Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-current-development-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-current: Development Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-forge-cicd-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-forge: CI/CD Pipelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-harbor-deployment-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-harbor: Deployment Automation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-services-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Services Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Services Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-lighthouse-monitoring-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-lighthouse: Monitoring &amp; Observability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-anchor-configuration-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-anchor: Configuration &amp; Secrets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-depths-infrastructure-service-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-depths: Infrastructure &amp; Service Discovery
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-intelligence-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data &amp; Intelligence Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data &amp; Intelligence Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-tide-data-ingestion-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-tide: Data Ingestion Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-oracle-knowledge-discovery-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-oracle: Knowledge Discovery &amp; RAG
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-cutting-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Cutting Concerns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cross-Cutting Concerns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliability-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reliability Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Orchestration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Strategy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalability Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scalability Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#horizontal-scaling-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Horizontal Scaling Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-architecture-scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Architecture Scalability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Stack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technology Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-technologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Technologies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Integration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-architecture-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Architecture Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Architecture Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned Enhancements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    poseidon-current
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            poseidon-current
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/current/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/current/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/current/implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/current/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    poseidon-oracle
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            poseidon-oracle
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/oracle/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Engineering
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Decisions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Decisions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/decisions/adr-001-microservices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ADR-001 Microservices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/decisions/adr-002-testing-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ADR-002 Testing Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/decisions/adr-003-ai-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ADR-003 AI Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/decisions/adr-004-deployment-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ADR-004 Deployment Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Case Studies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Case Studies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../case-studies/development-acceleration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development Workflow Automation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../case-studies/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Integrated Quality Engineering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-architecture-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Architecture Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Architecture Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Design Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-communication-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Communication Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-services-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Services Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Services Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-current-development-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-current: Development Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-forge-cicd-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-forge: CI/CD Pipelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-harbor-deployment-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-harbor: Deployment Automation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-services-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Services Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Services Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-lighthouse-monitoring-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-lighthouse: Monitoring &amp; Observability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-anchor-configuration-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-anchor: Configuration &amp; Secrets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-depths-infrastructure-service-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-depths: Infrastructure &amp; Service Discovery
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-intelligence-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data &amp; Intelligence Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data &amp; Intelligence Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-tide-data-ingestion-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-tide: Data Ingestion Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poseidon-oracle-knowledge-discovery-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      poseidon-oracle: Knowledge Discovery &amp; RAG
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-cutting-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Cutting Concerns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cross-Cutting Concerns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliability-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reliability Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Orchestration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Strategy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalability Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scalability Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#horizontal-scaling-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Horizontal Scaling Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-architecture-scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Architecture Scalability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Stack
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technology Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-technologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Technologies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Integration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-architecture-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Architecture Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Architecture Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned Enhancements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="platform-architecture">Platform Architecture</h1>
+<h2 id="system-overview">System Overview</h2>
+<p>The Poseidon Platform implements a <strong>service-oriented architecture</strong> designed for enterprise scalability, developer productivity, and operational excellence. The platform demonstrates modern distributed systems patterns while maintaining simplicity and reliability.</p>
+<h2 id="high-level-architecture">High-Level Architecture</h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "Developer Interface"
+        CLI[Natural Language CLI]
+        IDE[IDE Integration]
+        Web[Web Dashboard]
+    end
+
+    subgraph "Core Services"
+        Current[poseidon-current&lt;br/&gt;Development Workflows]
+        Forge[poseidon-forge&lt;br/&gt;CI/CD Pipelines]
+        Harbor[poseidon-harbor&lt;br/&gt;Deployment Automation]
+    end
+
+    subgraph "Platform Services"
+        Lighthouse[poseidon-lighthouse&lt;br/&gt;Monitoring &amp; Observability]
+        Anchor[poseidon-anchor&lt;br/&gt;Configuration &amp; Secrets]
+        Depths[poseidon-depths&lt;br/&gt;Infrastructure &amp; Discovery]
+    end
+
+    subgraph "Data &amp; Intelligence"
+        Tide[poseidon-tide&lt;br/&gt;Data Ingestion]
+        Oracle[poseidon-oracle&lt;br/&gt;Knowledge Discovery]
+    end
+
+    subgraph "Infrastructure Layer"
+        K8s[Kubernetes Cluster]
+        Storage[Persistent Storage]
+        Network[Service Mesh]
+    end
+
+    CLI --&gt; Current
+    IDE --&gt; Current
+    Web --&gt; Current
+
+    Current --&gt; Forge
+    Current --&gt; Harbor
+
+    Forge --&gt; Lighthouse
+    Harbor --&gt; Lighthouse
+
+    Anchor --&gt; Current
+    Anchor --&gt; Forge
+    Anchor --&gt; Harbor
+
+    Depths --&gt; Anchor
+    Depths --&gt; Lighthouse
+
+    Tide --&gt; Depths
+    Tide --&gt; Oracle
+
+    Oracle --&gt; Current
+    Oracle --&gt; Forge
+    Oracle --&gt; Harbor
+    Oracle --&gt; Lighthouse
+
+    Current --&gt; K8s
+    Forge --&gt; K8s
+    Harbor --&gt; K8s
+    Lighthouse --&gt; K8s
+    Anchor --&gt; K8s
+    Depths --&gt; K8s
+    Tide --&gt; K8s
+    Oracle --&gt; K8s
+
+    K8s --&gt; Storage
+    K8s --&gt; Network</code></pre>
+<h2 id="service-architecture-patterns">Service Architecture Patterns</h2>
+<h3 id="service-design-principles">Service Design Principles</h3>
+<p><strong>Single Responsibility</strong></p>
+<ul>
+<li>Each service owns one functional domain</li>
+<li>Clear boundaries between service capabilities</li>
+<li>Minimal coupling through well-defined APIs</li>
+</ul>
+<p><strong>Independent Deployment</strong></p>
+<ul>
+<li>Services deployable without coordination</li>
+<li>Containerized with standardized tooling</li>
+<li>Version management and backward compatibility</li>
+</ul>
+<p><strong>Operational Excellence</strong></p>
+<ul>
+<li>Health monitoring and observability built-in</li>
+<li>Graceful degradation and error handling</li>
+<li>Performance monitoring and optimization</li>
+</ul>
+<h3 id="service-communication-patterns">Service Communication Patterns</h3>
+<p><strong>Synchronous Communication</strong>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Dev as Developer
+    participant Current as poseidon-current
+    participant Forge as poseidon-forge
+    participant Harbor as poseidon-harbor
+
+    Dev-&gt;&gt;Current: Initiate commit workflow
+    Current-&gt;&gt;Forge: Trigger CI pipeline
+    Forge-&gt;&gt;Harbor: Deploy on success
+    Harbor-&gt;&gt;Current: Deployment status
+    Current-&gt;&gt;Dev: Workflow complete</code></pre></p>
+<p><strong>Asynchronous Communication</strong>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Tide as poseidon-tide
+    participant Oracle as poseidon-oracle
+    participant Lighthouse as poseidon-lighthouse
+
+    Tide-&gt;&gt;Oracle: New data available (event)
+    Oracle-&gt;&gt;Oracle: Process and index
+    Oracle-&gt;&gt;Lighthouse: Indexing metrics (event)
+    Lighthouse-&gt;&gt;Lighthouse: Update dashboards</code></pre></p>
+<p><strong>Event-Driven Workflows</strong></p>
+<ul>
+<li>Service state changes published as events</li>
+<li>Loose coupling through event subscriptions</li>
+<li>Eventual consistency with compensation patterns</li>
+</ul>
+<h2 id="core-services-architecture">Core Services Architecture</h2>
+<h3 id="poseidon-current-development-workflows"><strong>poseidon-current</strong>: Development Workflows</h3>
+<p><strong>Architecture Pattern</strong>: Event-driven automation with AI integration</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "poseidon-current"
+        CLI[CLI Interface]
+        TDD[TDD Engine]
+        AI[AI Integration]
+        Git[Git Operations]
+        Quality[Quality Gates]
+
+        CLI --&gt; TDD
+        CLI --&gt; AI
+        CLI --&gt; Git
+        TDD --&gt; Quality
+        AI --&gt; Git
+    end
+
+    subgraph "External Systems"
+        GitHub[GitHub]
+        LocalLLM[Local LLM]
+        FileSystem[File System]
+    end
+
+    Git --&gt; GitHub
+    AI --&gt; LocalLLM
+    TDD --&gt; FileSystem</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Real-time test execution with 2-3 second feedback</li>
+<li>Local AI-powered commit message generation</li>
+<li>Comprehensive quality gates with pre-commit validation</li>
+<li>Natural language CLI interface</li>
+</ul>
+<p><strong>Technology Stack</strong>:</p>
+<ul>
+<li><strong>Language</strong>: Python 3.11+</li>
+<li><strong>Testing</strong>: pytest with file watching</li>
+<li><strong>AI</strong>: Local LLM with ONNX runtime</li>
+<li><strong>Quality</strong>: black, flake8, bandit, safety</li>
+<li><strong>Automation</strong>: Task with watchexec</li>
+</ul>
+<h3 id="poseidon-forge-cicd-pipelines"><strong>poseidon-forge</strong>: CI/CD Pipelines</h3>
+<p><strong>Architecture Pattern</strong>: Pipeline orchestration with quality gates</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "poseidon-forge"
+        Trigger[Pipeline Triggers]
+        Build[Build Stage]
+        Test[Test Stage]
+        Security[Security Stage]
+        Deploy[Deploy Stage]
+
+        Trigger --&gt; Build
+        Build --&gt; Test
+        Test --&gt; Security
+        Security --&gt; Deploy
+    end
+
+    subgraph "Integration Points"
+        GitHub[GitHub]
+        Registry[Container Registry]
+        K8s[Kubernetes]
+        Lighthouse[poseidon-lighthouse]
+    end
+
+    Trigger --&gt; GitHub
+    Build --&gt; Registry
+    Deploy --&gt; K8s
+    Deploy --&gt; Lighthouse</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Multi-stage pipeline execution</li>
+<li>Parallel test and security scanning</li>
+<li>Automated deployment coordination</li>
+<li>Quality gate enforcement</li>
+</ul>
+<h3 id="poseidon-harbor-deployment-automation"><strong>poseidon-harbor</strong>: Deployment Automation</h3>
+<p><strong>Architecture Pattern</strong>: Declarative deployment with rollback capabilities</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "poseidon-harbor"
+        API[Deployment API]
+        Engine[Deployment Engine]
+        Monitor[Health Monitor]
+        Rollback[Rollback Manager]
+
+        API --&gt; Engine
+        Engine --&gt; Monitor
+        Monitor --&gt; Rollback
+    end
+
+    subgraph "Target Environments"
+        Dev[Development]
+        Staging[Staging]
+        Prod[Production]
+    end
+
+    Engine --&gt; Dev
+    Engine --&gt; Staging
+    Engine --&gt; Prod</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Zero-downtime deployments</li>
+<li>Automated health checking</li>
+<li>Intelligent rollback strategies</li>
+<li>Multi-environment coordination</li>
+</ul>
+<h2 id="platform-services-architecture">Platform Services Architecture</h2>
+<h3 id="poseidon-lighthouse-monitoring-observability"><strong>poseidon-lighthouse</strong>: Monitoring &amp; Observability</h3>
+<p><strong>Architecture Pattern</strong>: Centralized observability with distributed collection</p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Data Collection"
+        Metrics[Metrics Collection]
+        Logs[Log Aggregation]
+        Traces[Distributed Tracing]
+    end
+
+    subgraph "Processing &amp; Storage"
+        Process[Data Processing]
+        TSDB[Time Series DB]
+        LogStore[Log Storage]
+    end
+
+    subgraph "Analysis &amp; Alerting"
+        Dashboard[Dashboards]
+        Alerts[Alert Manager]
+        Analytics[Analytics Engine]
+    end
+
+    Metrics --&gt; Process
+    Logs --&gt; Process
+    Traces --&gt; Process
+
+    Process --&gt; TSDB
+    Process --&gt; LogStore
+
+    TSDB --&gt; Dashboard
+    LogStore --&gt; Dashboard
+    TSDB --&gt; Alerts
+    Dashboard --&gt; Analytics</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Real-time platform health monitoring</li>
+<li>Distributed tracing across services</li>
+<li>Intelligent alerting with correlation</li>
+<li>Performance analytics and trending</li>
+</ul>
+<h3 id="poseidon-anchor-configuration-secrets"><strong>poseidon-anchor</strong>: Configuration &amp; Secrets</h3>
+<p><strong>Architecture Pattern</strong>: Centralized configuration with distributed caching</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "poseidon-anchor"
+        API[Config API]
+        Vault[HashiCorp Vault]
+        Cache[Config Cache]
+        Sync[Sync Engine]
+
+        API --&gt; Vault
+        API --&gt; Cache
+        Vault --&gt; Sync
+        Sync --&gt; Cache
+    end
+
+    subgraph "Consumers"
+        Services[Platform Services]
+        K8s[Kubernetes Secrets]
+        CI[CI/CD Pipelines]
+    end
+
+    API --&gt; Services
+    Sync --&gt; K8s
+    API --&gt; CI</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Centralized secrets management with Vault</li>
+<li>Environment-specific configuration</li>
+<li>Automatic secret rotation</li>
+<li>Audit logging and compliance</li>
+</ul>
+<h3 id="poseidon-depths-infrastructure-service-discovery"><strong>poseidon-depths</strong>: Infrastructure &amp; Service Discovery</h3>
+<p><strong>Architecture Pattern</strong>: Service mesh with intelligent discovery</p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Service Discovery"
+        Registry[Service Registry]
+        Health[Health Checking]
+        LB[Load Balancing]
+    end
+
+    subgraph "Infrastructure Management"
+        Provision[Auto Provisioning]
+        Scaling[Auto Scaling]
+        Recovery[Self Healing]
+    end
+
+    subgraph "Network Layer"
+        Mesh[Service Mesh]
+        TLS[mTLS Management]
+        Policy[Network Policy]
+    end
+
+    Registry --&gt; Health
+    Health --&gt; LB
+    LB --&gt; Mesh
+
+    Provision --&gt; Scaling
+    Scaling --&gt; Recovery
+
+    Mesh --&gt; TLS
+    TLS --&gt; Policy</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Automatic service discovery with Consul</li>
+<li>Intelligent load balancing</li>
+<li>mTLS encryption for service communication</li>
+<li>Infrastructure auto-scaling and self-healing</li>
+</ul>
+<h2 id="data-intelligence-architecture">Data &amp; Intelligence Architecture</h2>
+<h3 id="poseidon-tide-data-ingestion-workflows"><strong>poseidon-tide</strong>: Data Ingestion Workflows</h3>
+<p><strong>Architecture Pattern</strong>: Stream processing with intelligent routing</p>
+<pre class="mermaid"><code>graph LR
+    subgraph "Data Sources"
+        Logs[Service Logs]
+        Metrics[Metrics Data]
+        Events[Platform Events]
+        Configs[Configuration Changes]
+    end
+
+    subgraph "poseidon-tide"
+        Ingest[Data Ingestion]
+        Process[Stream Processing]
+        Route[Intelligent Routing]
+        Buffer[Data Buffering]
+    end
+
+    subgraph "Data Destinations"
+        Oracle[poseidon-oracle]
+        Lighthouse[poseidon-lighthouse]
+        Storage[Long-term Storage]
+    end
+
+    Logs --&gt; Ingest
+    Metrics --&gt; Ingest
+    Events --&gt; Ingest
+    Configs --&gt; Ingest
+
+    Ingest --&gt; Process
+    Process --&gt; Route
+    Route --&gt; Buffer
+
+    Buffer --&gt; Oracle
+    Buffer --&gt; Lighthouse
+    Buffer --&gt; Storage</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Real-time data stream processing</li>
+<li>Intelligent data classification and routing</li>
+<li>Scalable buffering and backpressure handling</li>
+<li>Data quality validation and enrichment</li>
+</ul>
+<h3 id="poseidon-oracle-knowledge-discovery-rag"><strong>poseidon-oracle</strong>: Knowledge Discovery &amp; RAG</h3>
+<p><strong>Architecture Pattern</strong>: Vector search with intelligent retrieval</p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Data Processing"
+        Ingest[Data Ingestion]
+        Parse[Document Parsing]
+        Chunk[Intelligent Chunking]
+        Embed[Vector Embedding]
+    end
+
+    subgraph "Knowledge Storage"
+        VectorDB[Vector Database]
+        MetaDB[Metadata Store]
+        Cache[Query Cache]
+    end
+
+    subgraph "Query Processing"
+        NLQuery[Natural Language Query]
+        Retrieve[Context Retrieval]
+        Generate[Response Generation]
+        Refine[Answer Refinement]
+    end
+
+    Ingest --&gt; Parse
+    Parse --&gt; Chunk
+    Chunk --&gt; Embed
+    Embed --&gt; VectorDB
+    Embed --&gt; MetaDB
+
+    NLQuery --&gt; Retrieve
+    Retrieve --&gt; VectorDB
+    VectorDB --&gt; Generate
+    Generate --&gt; Refine
+    Generate --&gt; Cache</code></pre>
+<p><strong>Key Capabilities</strong>:</p>
+<ul>
+<li>Platform-wide knowledge indexing</li>
+<li>Natural language query interface</li>
+<li>Contextual information retrieval</li>
+<li>Intelligent answer generation with citations</li>
+</ul>
+<h2 id="cross-cutting-concerns">Cross-Cutting Concerns</h2>
+<h3 id="security-architecture">Security Architecture</h3>
+<p><strong>Security-by-Design Principles</strong>
+<pre class="mermaid"><code>graph TB
+    subgraph "Identity &amp; Access"
+        Auth[Authentication]
+        Authz[Authorization]
+        RBAC[Role-Based Access]
+        Auth --&gt; Authz
+        Authz --&gt; RBAC
+    end</code></pre></p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Network Security"
+        TLS[TLS Encryption]
+        Firewall[Network Policies]
+        VPN[VPN Access]
+        TLS --&gt; Firewall
+        Firewall --&gt; VPN
+    end</code></pre>
+<pre class="mermaid"><code>graph TB
+    subgraph "Application Security"
+        SAST[Static Analysis]
+        DAST[Dynamic Analysis]
+        SCA[Dependency Scanning]
+        SAST --&gt; DAST
+        DAST --&gt; SCA
+    end</code></pre>
+<pre class="mermaid"><code>graph TB
+    subgraph "Data Security"
+        Encrypt[Encryption at Rest]
+        Transit[Encryption in Transit]
+        Audit[Audit Logging]
+        Encrypt --&gt; Transit
+        Transit --&gt; Audit
+    end</code></pre>
+<p><strong>Security Implementation</strong>:</p>
+<ul>
+<li><strong>Identity Management</strong>: OAuth 2.0 with RBAC</li>
+<li><strong>Network Security</strong>: mTLS with service mesh</li>
+<li><strong>Application Security</strong>: Integrated SAST/DAST scanning</li>
+<li><strong>Data Protection</strong>: Encryption at rest and in transit</li>
+<li><strong>Compliance</strong>: Comprehensive audit logging</li>
+</ul>
+<h3 id="performance-architecture">Performance Architecture</h3>
+<p><strong>Performance Optimization Strategies</strong></p>
+<ul>
+<li><strong>Caching</strong>: Multi-layer caching with intelligent invalidation</li>
+<li><strong>Load Balancing</strong>: Intelligent routing with health-aware balancing</li>
+<li><strong>Auto-scaling</strong>: Horizontal and vertical scaling based on metrics</li>
+<li><strong>Resource Management</strong>: Efficient resource allocation and monitoring</li>
+</ul>
+<p><strong>Performance Targets</strong>:</p>
+<ul>
+<li><strong>API Response Time</strong>: &lt;100ms for 95th percentile</li>
+<li><strong>Service Discovery</strong>: &lt;10ms service lookup time</li>
+<li><strong>Deployment Time</strong>: &lt;5 minutes for standard deployments</li>
+<li><strong>Recovery Time</strong>: &lt;30 seconds for service health restoration</li>
+</ul>
+<h3 id="reliability-patterns">Reliability Patterns</h3>
+<p><strong>High Availability Design</strong>
+<pre class="mermaid"><code>graph LR
+    subgraph "Resilience Patterns"
+        CB[Circuit Breaker]
+        Retry[Retry Logic]
+        Timeout[Timeout Handling]
+        Bulkhead[Bulkhead Isolation]
+    end
+
+    subgraph "Monitoring"
+        Health[Health Checks]
+        Metrics[Performance Metrics]
+        Alerts[Intelligent Alerting]
+    end
+
+    subgraph "Recovery"
+        Rollback[Automated Rollback]
+        Failover[Service Failover]
+        Healing[Self Healing]
+    end
+
+    CB --&gt; Health
+    Retry --&gt; Metrics
+    Timeout --&gt; Alerts
+
+    Health --&gt; Rollback
+    Metrics --&gt; Failover
+    Alerts --&gt; Healing</code></pre></p>
+<p><strong>Reliability Implementation</strong>:</p>
+<ul>
+<li><strong>Circuit Breakers</strong>: Prevent cascade failures</li>
+<li><strong>Retry Logic</strong>: Intelligent retry with exponential backoff</li>
+<li><strong>Health Monitoring</strong>: Comprehensive health checking</li>
+<li><strong>Graceful Degradation</strong>: Fallback capabilities for all services</li>
+</ul>
+<h2 id="deployment-architecture">Deployment Architecture</h2>
+<h3 id="container-orchestration">Container Orchestration</h3>
+<p><strong>Kubernetes-Native Design</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Standard deployment pattern for all services</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">poseidon-service</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">poseidon-service</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">poseidon-service</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">poseidon/service:latest</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">        </span><span class="nt">ports</span><span class="p">:</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">        </span><span class="nt">resources</span><span class="p">:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">          </span><span class="nt">requests</span><span class="p">:</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;64Mi&quot;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;50m&quot;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">          </span><span class="nt">limits</span><span class="p">:</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;256Mi&quot;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;200m&quot;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">        </span><span class="nt">livenessProbe</span><span class="p">:</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/health</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">        </span><span class="nt">readinessProbe</span><span class="p">:</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/ready</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+</code></pre></div></p>
+<p><strong>Infrastructure Components</strong>:</p>
+<ul>
+<li><strong>Container Runtime</strong>: Docker with multi-stage builds</li>
+<li><strong>Orchestration</strong>: Kubernetes with custom operators</li>
+<li><strong>Service Mesh</strong>: Istio for traffic management</li>
+<li><strong>Storage</strong>: Persistent volumes with backup strategies</li>
+<li><strong>Networking</strong>: CNI with network policies</li>
+</ul>
+<h3 id="environment-strategy">Environment Strategy</h3>
+<p><strong>Multi-Environment Pipeline</strong>
+<pre class="mermaid"><code>graph TD
+    subgraph "Development"
+        DevCode[Code Changes]
+        DevTest[Automated Tests]
+        DevBuild[Build &amp; Package]
+    end
+
+    subgraph "Staging"
+        StageeDeploy[Staging Deployment]
+        StageTest[Integration Tests]
+        StageValidation[Performance Validation]
+    end
+
+    subgraph "Production"
+        ProdCanary[Canary Deployment]
+        ProdMonitor[Health Monitoring]
+        ProdPromote[Full Promotion]
+    end
+
+    DevCode --&gt; DevTest
+    DevTest --&gt; DevBuild
+    DevBuild --&gt; StageeDeploy
+    StageeDeploy --&gt; StageTest
+    StageTest --&gt; StageValidation
+    StageValidation --&gt; ProdCanary
+    ProdCanary --&gt; ProdMonitor
+    ProdMonitor --&gt; ProdPromote</code></pre></p>
+<p><strong>Environment Characteristics</strong>:</p>
+<ul>
+<li><strong>Development</strong>: Local containerized environment with file watching</li>
+<li><strong>Staging</strong>: Production-like environment with full integration testing</li>
+<li><strong>Production</strong>: High-availability deployment with monitoring and alerting</li>
+</ul>
+<h2 id="scalability-architecture">Scalability Architecture</h2>
+<h3 id="horizontal-scaling-strategy">Horizontal Scaling Strategy</h3>
+<p><strong>Service Scaling Patterns</strong></p>
+<ul>
+<li><strong>Stateless Services</strong>: Horizontal pod autoscaling based on CPU/memory</li>
+<li><strong>Stateful Services</strong>: Careful scaling with data consistency considerations</li>
+<li><strong>Background Processing</strong>: Queue-based scaling with worker pools</li>
+<li><strong>Data Services</strong>: Sharding and replication strategies</li>
+</ul>
+<p><strong>Performance Monitoring</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Automatic scaling triggers based on performance metrics</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">scaling_policies</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="s1">&#39;poseidon-current&#39;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="s1">&#39;cpu_threshold&#39;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s1">&#39;memory_threshold&#39;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="s1">&#39;response_time_threshold&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>  <span class="c1"># ms</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s1">&#39;min_replicas&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s1">&#39;max_replicas&#39;</span><span class="p">:</span> <span class="mi">10</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="p">},</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="s1">&#39;poseidon-oracle&#39;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="s1">&#39;cpu_threshold&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="s1">&#39;memory_threshold&#39;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="s1">&#39;query_latency_threshold&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>  <span class="c1"># ms</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="s1">&#39;min_replicas&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="s1">&#39;max_replicas&#39;</span><span class="p">:</span> <span class="mi">20</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="p">}</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="data-architecture-scalability">Data Architecture Scalability</h3>
+<p><strong>Data Distribution Strategy</strong></p>
+<ul>
+<li><strong>Time-Series Data</strong>: Partitioning by time windows</li>
+<li><strong>Configuration Data</strong>: Replicated across regions</li>
+<li><strong>Knowledge Data</strong>: Distributed vector search with sharding</li>
+<li><strong>Audit Data</strong>: Long-term archival with queryable indices</li>
+</ul>
+<h2 id="technology-stack">Technology Stack</h2>
+<h3 id="core-technologies">Core Technologies</h3>
+<p><strong>Development</strong></p>
+<ul>
+<li><strong>Languages</strong>: Python 3.11+, Go (for performance-critical services)</li>
+<li><strong>Frameworks</strong>: FastAPI, Pydantic, asyncio</li>
+<li><strong>Testing</strong>: pytest, coverage, mutation testing</li>
+<li><strong>Quality</strong>: black, flake8, bandit, safety, mypy</li>
+</ul>
+<p><strong>Infrastructure</strong></p>
+<ul>
+<li><strong>Container</strong>: Docker with multi-stage builds</li>
+<li><strong>Orchestration</strong>: Kubernetes with custom operators</li>
+<li><strong>Service Mesh</strong>: Istio for traffic management</li>
+<li><strong>Storage</strong>: PostgreSQL, Redis, MinIO</li>
+<li><strong>Monitoring</strong>: Prometheus, Grafana, Tempo, Alloy, Mimir</li>
+</ul>
+<p><strong>AI &amp; Data</strong></p>
+<ul>
+<li><strong>Local AI</strong>: ONNX Runtime, transformers</li>
+<li><strong>Vector Search</strong>: Weaviate or Qdrant</li>
+<li><strong>Stream Processing</strong>: Apache Kafka, Redis Streams</li>
+<li><strong>Analytics</strong>: ClickHouse for high-performance analytics</li>
+</ul>
+<h3 id="tool-integration">Tool Integration</h3>
+<p><strong>Development Tools</strong></p>
+<ul>
+<li><strong>Automation</strong>: Task for standardized workflows</li>
+<li><strong>File Watching</strong>: watchexec for real-time feedback</li>
+<li><strong>Pre-commit</strong>: Comprehensive quality gates</li>
+<li><strong>Local Development</strong>: Docker Compose for service orchestration</li>
+</ul>
+<p><strong>CI/CD Tools</strong></p>
+<ul>
+<li><strong>Version Control</strong>: Git with GitHub integration</li>
+<li><strong>CI/CD</strong>: GitHub Actions with custom workflows</li>
+<li><strong>Security</strong>: Integrated SAST/DAST scanning</li>
+<li><strong>Deployment</strong>: GitOps with ArgoCD</li>
+</ul>
+<h2 id="future-architecture-evolution">Future Architecture Evolution</h2>
+<h3 id="planned-enhancements">Planned Enhancements</h3>
+<p><strong>Advanced AI Integration</strong></p>
+<ul>
+<li>Enhanced local model capabilities</li>
+<li>Federated learning across platform instances</li>
+<li>Intelligent automation and optimization</li>
+</ul>
+<p><strong>Multi-Cloud Strategy</strong></p>
+<ul>
+<li>Cloud-agnostic deployment patterns</li>
+<li>Cross-cloud failover capabilities</li>
+<li>Edge computing integration</li>
+</ul>
+<p><strong>Advanced Analytics</strong></p>
+<ul>
+<li>Real-time platform analytics</li>
+<li>Predictive scaling and optimization</li>
+<li>Business intelligence integration</li>
+</ul>
+<hr />
+<p><strong>Architecture Philosophy</strong>: The Poseidon Platform architecture balances complexity and simplicity, providing enterprise-grade capabilities while maintaining developer productivity and operational excellence through intelligent automation and modern cloud-native patterns.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.path", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

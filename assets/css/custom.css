@@ -1,0 +1,55 @@
+/* Adobe Brand Colors */
+:root {
+  --adobe-red: #FF0000;
+  --adobe-red-light: #FF3333;
+  --adobe-red-dark: #CC0000;
+  --adobe-blue: #001E36;
+  --adobe-blue-light: #1473E6;
+}
+
+/* Override Material Design colors - more subtle */
+:root {
+  --md-primary-fg-color: var(--adobe-blue);
+  --md-primary-fg-color--light: var(--adobe-blue-light);
+  --md-primary-fg-color--dark: var(--adobe-blue);
+  --md-accent-fg-color: var(--adobe-blue-light);
+}
+
+/* Header styling - keep subtle */
+.md-header {
+  background: var(--adobe-blue);
+}
+
+/* Navigation styling - no red */
+.md-nav__link--active {
+  color: var(--adobe-blue-light) !important;
+  font-weight: 600;
+}
+
+.md-nav__link:hover {
+  color: var(--adobe-blue-light);
+}
+
+/* Content headers - RED only for H1 and H2 */
+.md-content h1 {
+  color: var(--adobe-red);
+  border-bottom: 2px solid var(--adobe-red);
+  padding-bottom: 0.5rem;
+}
+
+.md-content h2 {
+  color: var(--adobe-red);
+}
+
+.md-content h3 {
+  color: var(--adobe-blue);
+}
+
+/* Links - subtle blue instead of red */
+.md-content a {
+  color: var(--adobe-blue-light);
+}
+
+.md-content a:hover {
+  color: var(--adobe-blue);
+}
