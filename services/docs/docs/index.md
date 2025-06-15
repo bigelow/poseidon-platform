@@ -10,3 +10,4 @@ Run the documentation locally:
 ```bash
 task dev
 Visit http://localhost:8000 to view the documentation.
+# Updated
