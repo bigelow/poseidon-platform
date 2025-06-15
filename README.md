@@ -25,8 +25,5 @@ A comprehensive development infrastructure platform that transforms how teams bu
 
 ### Quick Start
 ```bash
-# Install platform CLI
-curl -sSL https://install.poseidon-platform.dev | bash
-
 # Start development workflow
 poseidon morning && poseidon commit && poseidon night
